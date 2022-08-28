@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/Calendar.js',
   output: {
     path: path.resolve(__dirname, '../build'),
     filename: 'index.js',
@@ -16,16 +16,9 @@ module.exports = {
         },
       },
       {
-        test: /\.ts$/,
+        test: /\.s[ac]ss$/i,
         exclude: /(node_modules|build)/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-      {
-        test: /\.css$/,
-        exclude: /(node_modules|build)/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', "sass-loader"],
       },
     ],
   },
@@ -38,7 +31,7 @@ module.exports = {
     },
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.jsx', '.css'],
+    extensions: ['.js', '.jsx', '.css'],
     alias: {
       react: path.resolve(__dirname, './node_modules/react'),
       'styled-components': path.resolve(

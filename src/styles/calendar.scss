@@ -1,0 +1,201 @@
+@import "../../assets/vars";
+@import "../../assets/mixins";
+
+.gc-calendar-input {
+    position: relative;
+    &.disabled {
+      position: none;
+      input {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.25;
+      }
+    }
+    input {
+        border: 0;
+        border-bottom: 1px solid $border;
+        height: 36px;
+        padding: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+        box-sizing: border-box;
+        width: 120px;
+        font: {
+            size: 13px;
+            weight: 500;
+        }
+        color: $black;
+        text-align: center;
+        outline: 0;
+        &:active, &:focus {
+            outline: 0;
+        }
+        &::placeholder{
+            font-style: italic;
+            color: $border;
+        }
+    }
+}
+
+.gc-calendar {
+    width: 182px;
+    height: auto;
+    position: absolute;
+    left: calc(50% - 91px);
+    z-index: 10;
+    border-radius: 8px;
+    border: 1px solid $border;
+    @include shadow;
+    background-color: $white;
+    opacity: 1;
+    &.down {
+      top: calc(100% + 10px);
+    }
+    &.top {
+      bottom: calc(100% + 10px);
+    }
+    &.hidden {
+        display: none;
+        opacity: 0;
+    }
+    .gc-month-name {
+        border-radius: 8px 8px 0px 0px;
+        color: $white;
+        background-color: $secondary;
+        @include flex-row-center;
+        position: relative;
+        box-sizing: border-box;
+        font: {
+            size: 14px;
+            weight: 600;
+        }
+        width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-transform: capitalize;
+        &:before {
+            content: "";
+            background-color: $border;
+            width: 8px;
+            height: 8px;
+            transform: rotate(45deg);
+            position: absolute;
+            top: -4px;
+            left: calc(50% - 4px);
+            @include shadow;
+            z-index: -1;
+        }
+        &:after {
+            content: "";
+            background-color: $secondary;
+            width: 6px;
+            height: 6px;
+            transform: rotate(45deg);
+            position: absolute;
+            top: -3px;
+            left: calc(50% - 3px);
+        }
+        .gc-calendar-control {
+            position: absolute;
+            top: 0px;
+            @include clean-button;
+            width: 30px;
+            height: 30px;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            @include flex-col-center;
+            i {
+                pointer-events: none;
+                display: inline-block;
+                color: $white;
+            }
+            &.prev {
+                left: 0px;
+                i {
+                    transform: rotate(90deg);
+                }
+            }
+            &.next {
+                right: 0px;
+                i {
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+    }
+    .gc-days-name {
+        @include flex-row-center;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        @include clean-list;
+        @include zero-hard;
+        li {
+            width: 26px;
+            height: 26px;
+            @include clean-list;
+            @include zero-hard;
+            @include flex-row-center;
+            color: $black;
+            font: {
+                size: 12px;
+                weight: 500;
+            }
+            text-transform: uppercase;
+        }
+    }
+    .gc-week {
+        width: 100%;
+        &:last-of-type {
+            justify-content: flex-start!important;
+            .gc-day {
+                &:last-of-type {
+                    color: $secondary;
+                }
+                &:nth-of-type(7){
+                    color: $accent;
+                }
+            }
+        }
+        .gc-day {
+            width: 26px;
+            max-width: 26px;
+            min-width: 26px;
+            height: 26px;
+            min-height: 26px;
+            max-height: 26px;
+            border-radius: 2px;
+            background-color: $white;
+            border: 1px solid $white;
+            box-sizing: border-box;
+            color: $secondary;
+            @include flex-col-center;
+            font: {
+                weight: 500;
+                size: 12px;
+            }
+            cursor: pointer;
+            outline: 0;
+            &:focus, &:hover, &:active {
+                outline: 0;
+            }
+            &:last-of-type{
+                color: $accent;
+                &.active {
+                    background-color: $accent;
+                    color: $white;
+                }
+            }
+            &.active {
+                background-color: $secondary;
+                color: $white;
+                border-radius: 20px;
+            }
+        }
+
+        .disabled-button{
+            color:grey;
+            cursor: not-allowed
+        }
+    }
+}
