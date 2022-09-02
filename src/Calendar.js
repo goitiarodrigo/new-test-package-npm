@@ -1,6 +1,7 @@
 import React from 'react'
 import Calend from './components/Calend';
 
+
 export const handleSetFirstDayOfMonth = () => {
   const currentDate = new Date();
   const month = currentDate.getMonth();
@@ -9,7 +10,9 @@ export const handleSetFirstDayOfMonth = () => {
   return new Date(newDate).getTime()
 }
 
-const Calendar = ({direction, type, disabled, timestamp, onChangeValue}) => {
+
+
+const Calendar = ({direction, type, disabled, timestamp, onChangeValue, selectedFrom}) => {
 
   
   return (
@@ -17,10 +20,11 @@ const Calendar = ({direction, type, disabled, timestamp, onChangeValue}) => {
       direction={direction}
       type={type}
       disabled={disabled}
+      selectedFrom={selectedFrom}
       timestamp={timestamp}
       onChange={(event) => onChangeValue(event)}
     />
-    // <h1>Hola</h1>
+
   )
 }
 

@@ -1,4 +1,5 @@
 const path = require('path')
+
 module.exports = {
   entry: './src/Calendar.js',
   output: {
@@ -8,6 +9,13 @@ module.exports = {
   },
   module: {
     rules: [
+      // {
+      //   test: /\.(ts|js)?$/,
+      //   exclude: /node_modules/,
+      //   use: {
+      //     loader: "ts-loader",
+      //   },
+      // },
       {
         test: /\.js$/,
         exclude: /(node_modules|build)/,

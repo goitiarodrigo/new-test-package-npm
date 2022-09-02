@@ -10,11 +10,13 @@ const Week = (props) => {
     // const [activeWeek, setActiveWeek] = useState()
 
     const handleValidateDay = (dataKey) => {
-        if(dataKey > Date.now()) {
-            return true
-        } else {
+        // if(dataKey > Date.now()) {
+        //     return true
+        // } else {
             if(props.type && props.type === 'to') {
+                
                 if(dataKey < props.selectedFrom) {
+                    console.log('si')
                     return true
                 }else {
                     return false
@@ -22,11 +24,12 @@ const Week = (props) => {
             }else {
                 return false
             }
-        }
+        // }
     }
 
-    const handleClick = (event) => {
+    // console.log(handleValidateDay())
 
+    const handleClick = (event) => {
         props.onclicked(props.weekNumber)
         let clickedDay = parseInt(event.target.value)
         let day = new Date(clickedDay)
@@ -39,7 +42,7 @@ const Week = (props) => {
         refreshDate(clickedDay)
         
     }
-
+   
     const renderDays = () => {
         let data = props.daysData
 
@@ -66,7 +69,7 @@ const Week = (props) => {
         let _renderDays = Object.keys(data).map(key => (
             <button 
                 value={data[key]}
-                disabled={handleValidateDay(data[key]) }
+                disabled={handleValidateDay(data[key])}
                 type="button" key={`gc-tab-${key}`}
                 className={`${handleValidateDay(data[key]) ? 'disabled-button': ""} gc-day ${checkWeek(key) == true ? "active": ""}`}
                 onClick={handleClick}>{new Date(data[key]).getDate()}</button>

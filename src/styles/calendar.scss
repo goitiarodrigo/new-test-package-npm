@@ -145,6 +145,11 @@
         }
     }
     .gc-week {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: center;
         width: 100%;
         &:last-of-type {
             justify-content: flex-start!important;
