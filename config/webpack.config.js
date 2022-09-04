@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/Calendar.js',
   output: {
     path: path.resolve(__dirname, '../build'),
-    filename: 'index.js',
+    filename: 'calendar.js',
     libraryTarget: 'commonjs2',
   },
   module: {

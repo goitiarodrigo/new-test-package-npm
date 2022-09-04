@@ -2,32 +2,22 @@ import React, { useState } from "react"
 
 
 const Week = (props) => {
-    // let { daysData, timestamp, updateDate } = this.props
 
     const [selectedTimestamp, setSelectedTimestamp] = useState()
     const [selectedDay, setSelectedDay] = useState('')
-    // const [weekNumber, setWeekNumber] = useState()
-    // const [activeWeek, setActiveWeek] = useState()
 
     const handleValidateDay = (dataKey) => {
-        // if(dataKey > Date.now()) {
-        //     return true
-        // } else {
-            if(props.type && props.type === 'to') {
-                
-                if(dataKey < props.selectedFrom) {
-                    console.log('si')
-                    return true
-                }else {
-                    return false
-                }
+        if(props.type && props.type === 'to') {
+            
+            if(dataKey < props.selectedFrom) {
+                return true
             }else {
                 return false
             }
-        // }
+        }else {
+            return false
+        }
     }
-
-    // console.log(handleValidateDay())
 
     const handleClick = (event) => {
         props.onclicked(props.weekNumber)
@@ -70,8 +60,8 @@ const Week = (props) => {
             <button 
                 value={data[key]}
                 disabled={handleValidateDay(data[key])}
-                type="button" key={`gc-tab-${key}`}
-                className={`${handleValidateDay(data[key]) ? 'disabled-button': ""} gc-day ${checkWeek(key) == true ? "active": ""}`}
+                type="button" key={`tab-${key}`}
+                className={`${handleValidateDay(data[key]) ? 'disabled-button': ""} day ${checkWeek(key) == true ? "active": ""}`}
                 onClick={handleClick}>{new Date(data[key]).getDate()}</button>
         ))
         return _renderDays
@@ -80,7 +70,7 @@ const Week = (props) => {
         
 
         return (
-            <div className="gc-week flex row end">
+            <div className="week flex row end">
                 {renderDays()}
             </div>
         )

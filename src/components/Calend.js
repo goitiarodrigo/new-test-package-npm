@@ -2,13 +2,13 @@ import React, {useEffect, useRef, useState} from 'react'
 import {humanMonth} from './humanMonth'
 import Week from './Week'
 import '../styles/calendar.scss'
+import { arrowLeft, arrowRight } from '../svgFiles/arrow'
 
 
 
 const Calendar = (props) => {
-    // const [control, setControl] = useState('')
+
     const [open, setOpen] = useState(props.open)
-    
     const [timestamp, setTimesstamp] = useState(props.timestamp ? props.timestamp : new Date().getTime())
     const [activeWeek, setActiveWeek] = useState('')
 
@@ -132,7 +132,7 @@ const Calendar = (props) => {
         const renderWeek = Object.keys(weeksStamps).map(key => (
             <Week onclicked={handleWeekClick}
                   selectedFrom={props.selectedFrom ? props.selectedFrom : null}
-                  updateDate={handleClick} weekNumber={key} timestamp={timestamp} key={`gc-week-${key}`}
+                  updateDate={handleClick} weekNumber={key} timestamp={timestamp} key={`week-${key}`}
                   daysData={weeksStamps[key]} activeWeek={activeWeek} type={props.type ? props.type : null}/>
         ))
         month = humanMonth(month, 'long')
@@ -157,8 +157,8 @@ const Calendar = (props) => {
         setOpen(false);
     }
 
-    const handleOpen = () => {
-        setOpen(true)
+    const handleOpen = (value) => {
+        !value && setOpen(true)
     }
     
     
@@ -228,32 +228,43 @@ const Calendar = (props) => {
 
     return (
 
-        <div className={`gc-calendar-input ${props.disabled == true ? 'disabled' : ''}`} ref={nodeRef}>
-            <input onClick={handleOpen} disabled={props.disabled != undefined ? props.disabled : false} readOnly type="text"
-                   placeholder="1 de Mayo" value={getDateData(new Date(timestamp))
-            }/>
+        <div className={`calendar-input ${props.disabled ? 'disabled' : ''}`} ref={nodeRef}>
+            <div  onClick={() => handleOpen(props.disabled != undefined ? props.disabled : false)} title={getDateData(new Date(timestamp))}>
+                {
+                    props.svgFile ??
+                    <svg xmlns="http://www.w3.org/2000/svg" width={50} height={50} fill={'#ccc'} viewBox="0 0 448 512"><path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z"/></svg>
+                }
+            </div>
             {
                 open ?
                     <div
-                        className={`gc-calendar flex col end ${props.direction ? props.direction : 'down'} ${open ? '' : 'hidden'}`}>
+                        className={`calendar flex col end ${props.direction ?? 'bottom'}Calendar ${open ? '' : 'hidden'}`}>
                         {/* MONTH NAME*/}
-                        <span className="gc-month-name">
-                    {renderCalendar().month}
+                        <span style={{backgroundColor: props.backgroundMonth ?? '#1244be'}} className={`month-name ${props.direction ?? 'bottom'}`}>
+                            {renderCalendar().month}
 
                             {/* PREV BUTTON */}
-                            <button onClick={handleControl}
-                                    name="-" type="button" className="gc-calendar-control prev">
-                        <i className="gc-font caret"></i>
-                    </button>
+                            <button
+                                onClick={handleControl}
+                                name="-"
+                                type="button"
+                                className="calendar-control prev"
+                                >
+                                <i style={{pointerEvents: 'none'}}>{arrowLeft}</i>
+                            </button>
                             {/* NEXT BUTTON */}
-                            <button onClick={handleControl} name="+" type="button" className="gc-calendar-control next">
-                        <i className="gc-font caret"></i>
-                    </button>
-
-                </span>
+                            <button
+                                onClick={handleControl}
+                                name="+"
+                                type="button"
+                                className="calendar-control next"
+                                >
+                                <i style={{pointerEvents: 'none'}}>{arrowRight}</i>
+                            </button>
+                        </span>
 
                         {/* WEEK TITLES */}
-                        <ul className="gc-days-name">
+                        <ul className="days-name">
                             <li>l</li>
                             <li>m</li>
                             <li>m</li>

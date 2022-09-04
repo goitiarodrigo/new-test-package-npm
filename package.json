@@ -1,8 +1,8 @@
 {
   "name": "pick-date-calendar-react",
-  "version": "1.0.13",
+  "version": "1.0.32",
   "description": "",
-  "main": "build/index.js",
+  "main": "build/calendar.js",
   "scripts": {
     "prepublishOnly": "npm run build",
     "start": "webpack --mode development --config config/webpack.config.js --watch",

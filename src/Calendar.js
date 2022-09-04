@@ -12,18 +12,34 @@ export const handleSetFirstDayOfMonth = () => {
 
 
 
-const Calendar = ({direction, type, disabled, timestamp, onChangeValue, selectedFrom}) => {
+const Calendar = (props) => {
+  const {
+    direction,
+    type,
+    disabled,
+    timestamp,
+    onChangeValue,
+    selectedFrom,
+    styles,
+    backgroundMonth,
+    svgFile,
+    widthContainer,
+    heightContainer
+  } = props
 
-  
   return (
-    <Calend
-      direction={direction}
-      type={type}
-      disabled={disabled}
-      selectedFrom={selectedFrom}
-      timestamp={timestamp}
-      onChange={(event) => onChangeValue(event)}
-    />
+    <div style={{width: widthContainer ?? '50px', height: heightContainer ?? '55px'}}>
+      <Calend
+        direction={direction}
+        type={type}
+        disabled={disabled}
+        selectedFrom={selectedFrom}
+        timestamp={timestamp}
+        onChange={(event) => onChangeValue(event)}
+        backgroundMonth={backgroundMonth}
+        svgFile={svgFile}
+      />
+    </div>
 
   )
 }
